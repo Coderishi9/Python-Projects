@@ -116,10 +116,11 @@ For Development, no need to setup Spark environment and Spark session gets creat
 
 1. _IntelliJ_
 
-&nbsp;&nbsp;- Add a Configuration of type sbt Task to run or debug
-&nbsp;&nbsp;- sbt Tool Window in the Sidebar
-&nbsp;&nbsp;- sbt shell at the Bottom Left
-1. _Terminal_ - IDE integrated or native:
+- &nbsp;&nbsp;Add a Configuration of type sbt Task to run or debug
+- &nbsp;&nbsp;sbt Tool Window in the Sidebar
+- &nbsp;&nbsp;sbt shell at the Bottom Left
+
+2. _Terminal_ - IDE integrated or native:
 
   - sbt - opens an sbt shell
 
