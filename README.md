@@ -116,13 +116,13 @@ For Development, no need to setup Spark environment and Spark session gets creat
 
 1. _IntelliJ_
 
-- Add a Configuration of type sbt Task to r_u_n or debug
-- sbt Tool Window in the Sidebar
-- sbt shell at the Bottom Left
+  - Add a Configuration of type sbt Task to r_u_n or debug
+  - sbt Tool Window in the Sidebar
+  - sbt shell at the Bottom Left
 
 1. _Terminal_ - IDE integrated or native:
 
-- sbt - opens an sbt shell
+  - sbt - opens an sbt shell
 
 **Using sbt shell:**
 
@@ -211,39 +211,33 @@ The Lambdas are separated and implemented in Transformation Class. Currently we 
 - Auto-Coding
 
 ```
-case object Transformation {
+case object Transformation { 
 
-private val configHDFS = new Configuration()
+  private val configHDFS = new Configuration() 
+  private val uriHDFS = new URI(ConfigFactory.load().getString("hdfs.uri")) 
+  private val fileSystemHDFS: FileSystem = FileSystem.get(uriHDFS, configHDFS) 
 
-private val uriHDFS = new URI(ConfigFactory.load().getString("hdfs.uri"))
 
-private val fileSystemHDFS: FileSystem = FileSystem.get(uriHDFS, configHDFS)
+  def parsingTransformation(docID: String, docContent: String): (String, String) = { 
+    applyTransformation(docID, docContent, PARSING) 
+  } 
 
-def parsingTransformation(docID: String, docContent: String): (String, String) = {
+  def applyTransformation(docID: String, docContent: String, transformationName: TransformationEnumeration.Value): (String, String) = { 
+  
+    try { 
+      (docID, mlpOperation(docContent, transformationName.toString)) 
+    } finally { 
 
-applyTransformation(docID, docContent, PARSING)
+    } 
+  } 
 
-}
+  def autoCodingTransformation(docID: String, docContent: String): (String, String) = { 
 
-def applyTransformation(docID: String, docContent: String, transformationName: TransformationEnumeration.Value): (String, String) = {
+    applyTransformation(docID, docContent, AUTOCODING) 
 
-try {
+  } 
 
-(docID, mlpOperation(docContent, transformationName.toString))
-
-} finally {
-
-}
-
-}
-
-def autoCodingTransformation(docID: String, docContent: String): (String, String) = {
-
-applyTransformation(docID, docContent, AUTOCODING)
-
-}
-
-}
+} 
 ```
 
 ## BADAAS API
@@ -258,7 +252,7 @@ applyTransformation(docID, docContent, AUTOCODING)
 
 As a first step for adding a new endpoint, we should add the HTTP request in the route file. Play has two complimentary routing mechanisms. In the conf directory, there&#39;s a file called &quot;routes&quot; which contains entries for the HTTP method and a relative URL path, and points it at an action in a controller.
 
-<font color='red'>`GET /yourRequest controllers.badaas.yourController.yourAction()`</font>
+<font color='red'>GET /yourRequest controllers.badaas.yourController.yourAction()</font>
 
 This is useful for situations where a front end service is rendering HTML or direct way to implement the action in controller. However, Play also contains a more powerful routing DSL that we will use for the REST API.For every HTTP request start with / only, Play routes it to a dedicated BadaasRouter class to handle the BADAAS requests, through the conf/routes file:
 
@@ -294,39 +288,28 @@ The next step is to add the action for the request in controller. A controller h
 The methods in a controller consist of a method returning an Action. The Action provides the &quot;engine&quot; to Play.Using the action, the controller passes in a block of code that takes a [Request](https://www.playframework.com/documentation/latest/api/scala/index.html#play.api.mvc.Request) passed in as implicit. Then, the block must return [Future[Result]](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future)
 
 ```
-class BadaasController @Inject()(val controllerComponents: ControllerComponents)(
+class BadaasController @Inject()(val controllerComponents: ControllerComponents)( 
+  implicit ec: ExecutionContext) extends BadaasBaseController { 
+{ 
 
-implicit ec: ExecutionContext) extends BadaasBaseController {
+  def getData(fileCount: Int, clientName: String, categoryName: String, transformationName: String): Action[AnyContent] = BadaasAction.async { 
 
-{
+    implicit request => 
+      logger.trace("Controller - Get Data") 
+      
+      BadaasServiceHandler.getData(fileCount, clientName, categoryName, transformationName).map { result => 
+        Ok(result) 
+      } 
+  } 
 
-def getData(fileCount: Int, clientName: String, categoryName: String, transformationName: String): Action[AnyContent] = BadaasAction.async {
+ def yourAction(): Action[AnyContent] = BadaasAction.async { 
 
-implicit request =>
-
-logger.trace("Controller - Get Data")
-
-BadaasServiceHandler.getData(fileCount, clientName, categoryName, transformationName).map { result =>
-
-Ok(result)
-
-}
-
-}
-
-def yourAction(): Action[AnyContent] = BadaasAction.async {
-
-implicit request =>
-
-BadaasServiceHandler.yourHandlerMethod().map { result =>
-
-Ok(result)
-
-}
-
-}
-
-}
+    implicit request => 
+      BadaasServiceHandler.yourHandlerMethod().map { result => 
+        Ok(result) 
+      } 
+  } 
+} 
 ```
 
 ## BADAAS Actions
