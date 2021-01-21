@@ -252,7 +252,7 @@ case object Transformation {
 
 As a first step for adding a new endpoint, we should add the HTTP request in the route file. Play has two complimentary routing mechanisms. In the conf directory, there&#39;s a file called &quot;routes&quot; which contains entries for the HTTP method and a relative URL path, and points it at an action in a controller.
 
-<font color='red'>GET /yourRequest controllers.badaas.yourController.yourAction()</font>
+`GET /yourRequest controllers.badaas.yourController.yourAction()`
 
 This is useful for situations where a front end service is rendering HTML or direct way to implement the action in controller. However, Play also contains a more powerful routing DSL that we will use for the REST API.For every HTTP request start with / only, Play routes it to a dedicated BadaasRouter class to handle the BADAAS requests, through the conf/routes file:
 
