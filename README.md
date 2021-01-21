@@ -149,8 +149,7 @@ The current design uses the tree based storage representation to store/fetch the
 ## Using Apache Spark with Delta Lake
 
 Apache Spark is used as data execution engine for processing the large set of data from data store and applying the transformation tasks on the top of the data. Additionally we are using Delta Lake extension. Delta Lake is an open-source storage layer that brings ACID transactions to Apache Spark and big data workloads. These functionalities cover in TDEngine Class and having spark session with support of delta lake.
-
-`
+```
 case object TDEngine { 
 
   private val logger = Logger(getClass) 
@@ -185,9 +184,11 @@ case object TDEngine {
 
     else 
 
-      dataRDD.rdd.filter( x => x.getString(0).startsWith(nameStartsWith)).take(numberOfFiles).map(x => BadaasDataResource(generateUUID(x.getString(0).getBytes()), Array(x.getString(1)))).toList 
+      dataRDD.rdd.filter( x => x.getString(0).startsWith(nameStartsWith)).take(numberOfFiles).map(x => 		BadaasDataResource(generateUUID(x.getString(0).getBytes()), Array(x.getString(1)))).toList 
 
   } 
+
+ 
 
 def method() : Any = { 
 
@@ -196,8 +197,8 @@ def method() : Any = {
 // call transformation 
 
 } 
-} `
 
+}```
 ## Transformation or Lambda
 
 The Lambdas are separated and implemented in Transformation Class. Currently we are supporting minimal number of transformations. if you want to add new lambda(s), then you will implement it in this Class and make call from TDEngine. The supported transformations are below,
