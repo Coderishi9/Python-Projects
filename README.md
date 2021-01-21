@@ -198,60 +198,131 @@ def method() : Any = {
 
 ## Transformation or Lambda
 
-The Lambdas are separated and implemented in Transformation Class. Currently we are supporting minimal number of transformations. if you want to add new lambda(s), then you will implement it in this Class and make call from TDEngine. The supported transformations are below,
+Spark Transformation is a function that takes the inputs as RDD and map into another format without changing the input. The Lambdas are separated and implemented in Transformation.scala class. Currently we are supporting minimal number of transformations. The supported transformations are below,
 
 - Conversion
 - Parsing
 - PHI Mask
 - Auto-Coding
+- Custom - Not implemented yet
 
-```
-case object Transformation { 
+## Guidelines for implementing new transformation
 
-  private val configHDFS = new Configuration() 
-  private val uriHDFS = new URI(ConfigFactory.load().getString("hdfs.uri")) 
-  private val fileSystemHDFS: FileSystem = FileSystem.get(uriHDFS, configHDFS) 
+  - Implement the lambda function in Transformation.scala
+  - Add the transformation name as enumeration in TransformationEnumeration.scala
+  - Make the necessary changes in apply() method at TDEngine.scalato call the transformation
+
+badaas-core: .\src\main\scala\ai\buddi\core\Transformation.scala
+
+case object Transformation {
+
+private val configHDFS = new Configuration()
+
+private val uriHDFS = new URI(ConfigFactory.load().getString(&quot;hdfs.uri&quot;))
+
+private val fileSystemHDFS: FileSystem = FileSystem.get(uriHDFS, configHDFS)
+
+def parsingTransformation(docID: String, docContent: String): (String, String) = {
+
+applyTransformation(docID, docContent, PARSING)
+
+}
+
+def applyTransformation(docID: String, docContent: String, transformationName: TransformationEnumeration.Value): (String, String) = {
+
+try {
+
+(docID, mlpOperation(docContent, transformationName.toString))
+
+} finally {
+
+}
+
+}
+
+def autoCodingTransformation(docID: String, docContent: String): (String, String) = {
+
+applyTransformation(docID, docContent, AUTOCODING)
+
+}
+
+def yourTransformation(): Any = {
+
+// transformation logic
+
+}
+
+}
+
+badaas-core: .\src\main\scala\ai\buddi\core\TransformationEnumeration.scala
+
+object TransformationEnumeration extends Enumeration {
+
+type TransformationEnumeration = Value
+
+val PHIMASK = Value(&quot;phimask&quot;)
+
+val PARSING = Value(&quot;parsing&quot;)
+
+val AUTOCODING = Value(&quot;autocoding&quot;)
+
+val CONVERSION = Value(&quot;conversion&quot;)
+
+// Add new lambda as enum here
+
+// format
+
+implicit val myFormat = new Format[TransformationEnumeration.TransformationEnumeration] {
+
+def reads(json: JsValue): JsSuccess[Value] = JsSuccess(TransformationEnumeration.withName(json.as[String]))
+
+def writes(myEnum: TransformationEnumeration.TransformationEnumeration) = JsString(myEnum.toString)
+
+}
+
+}
+
+##
 
 
-  def parsingTransformation(docID: String, docContent: String): (String, String) = { 
-    applyTransformation(docID, docContent, PARSING) 
-  } 
+##
 
-  def applyTransformation(docID: String, docContent: String, transformationName: TransformationEnumeration.Value): (String, String) = { 
-  
-    try { 
-      (docID, mlpOperation(docContent, transformationName.toString)) 
-    } finally { 
 
-    } 
-  } 
+##
 
-  def autoCodingTransformation(docID: String, docContent: String): (String, String) = { 
 
-    applyTransformation(docID, docContent, AUTOCODING) 
+##
 
-  } 
 
-} 
-```
+##
+
 
 ## BADAAS API
 
 ## Steps to add an endpoint
 
-1. Route file = ?
-2. Router =?
-3. Controller =?
+1. Add your HTTP endpoint for routing
+
+1. Using Route file
+2. Using Router class
+
+1. Add action for your endpoint in Controller class
 
 ## Routing BADAAS Requests
 
-As a first step for adding a new endpoint, we should add the HTTP request in the route file. Play has two complimentary routing mechanisms. In the conf directory, there&#39;s a file called &quot;routes&quot; which contains entries for the HTTP method and a relative URL path, and points it at an action in a controller.
+As a first step, add your HTTP endpoint,we should add the HTTP request for routing. Play framework has two complimentary routing mechanisms. In the conf directory, there&#39;s a file called &quot;routes&quot; which contains entries for the HTTP method and a relative URL path, and points it at an action in a controller.
 
-`GET /yourRequest controllers.badaas.yourController.yourAction()`
+badaas-api: .\conf\routes
 
-This is useful for situations where a front end service is rendering HTML or direct way to implement the action in controller. However, Play also contains a more powerful routing DSL that we will use for the REST API.For every HTTP request start with / only, Play routes it to a dedicated BadaasRouter class to handle the BADAAS requests, through the conf/routes file:
+GET /yourRequest controllers.badaas.yourController.yourAction()
 
-```->   /                  controllers.badaas.BadaasRouter```
+This is useful for situations where a front end service is rendering HTML or direct way to implement the action in controller.
+
+However, Play framework also contains a more powerful routing DSL that we will use for the REST API.For every HTTP request start with / only, Play routes it to a dedicated BadaasRouter class to handle the BADAAS requests, through the conf/routes file:
+
+-\&gt; / controllers.badaas.BadaasRouter
+
+##
 
 ## Using BADAASRouter
 
