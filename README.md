@@ -198,7 +198,7 @@ def method() : Any = {
 
 ## Transformation or Lambda
 
-Spark Transformation is a function that takes the inputs as RDD and map into another format without changing the input. The Lambdas are separated and implemented in Transformation.scala class. Currently we are supporting minimal number of transformations. The supported transformations are below,
+Spark Transformation is a function that takes the inputs as RDD and map into another format without changing the input. The Lambdas are separated and implemented in ```Transformation.scala class```. Currently we are supporting minimal number of transformations. The supported transformations are below,
 
 - Conversion
 - Parsing
@@ -208,12 +208,12 @@ Spark Transformation is a function that takes the inputs as RDD and map into ano
 
 ## Guidelines for implementing new transformation
 
-  - Implement the lambda function in Transformation.scala
-  - Add the transformation name as enumeration in TransformationEnumeration.scala
-  - Make the necessary changes in apply() method at TDEngine.scalato call the transformation
+  - Implement the lambda function in ```Transformation.scala```.
+  - Add the transformation name as enumeration in ```TransformationEnumeration.scala```.
+  - Make the necessary changes in apply() method at ```TDEngine.scala``` to call the transformation
 
-badaas-core: .\src\main\scala\ai\buddi\core\Transformation.scala
-
+##### badaas-core: .\src\main\scala\ai\buddi\core\Transformation.scala
+```
 case object Transformation {
 
 private val configHDFS = new Configuration()
@@ -253,20 +253,22 @@ def yourTransformation(): Any = {
 }
 
 }
+```
 
-badaas-core: .\src\main\scala\ai\buddi\core\TransformationEnumeration.scala
 
+##### badaas-core: .\src\main\scala\ai\buddi\core\TransformationEnumeration.scala
+```
 object TransformationEnumeration extends Enumeration {
 
 type TransformationEnumeration = Value
 
-val PHIMASK = Value(&quot;phimask&quot;)
+val PHIMASK = Value("phimask")
 
-val PARSING = Value(&quot;parsing&quot;)
+val PARSING = Value("parsing")
 
-val AUTOCODING = Value(&quot;autocoding&quot;)
+val AUTOCODING = Value("autocoding")
 
-val CONVERSION = Value(&quot;conversion&quot;)
+val CONVERSION = Value("conversion")
 
 // Add new lambda as enum here
 
@@ -281,21 +283,9 @@ def writes(myEnum: TransformationEnumeration.TransformationEnumeration) = JsStri
 }
 
 }
+```
 
 ##
-
-
-##
-
-
-##
-
-
-##
-
-
-##
-
 
 ## BADAAS API
 
@@ -310,17 +300,17 @@ def writes(myEnum: TransformationEnumeration.TransformationEnumeration) = JsStri
 
 ## Routing BADAAS Requests
 
-As a first step, add your HTTP endpoint,we should add the HTTP request for routing. Play framework has two complimentary routing mechanisms. In the conf directory, there&#39;s a file called &quot;routes&quot; which contains entries for the HTTP method and a relative URL path, and points it at an action in a controller.
+As a first step, add your HTTP endpoint,we should add the HTTP request for routing. Play framework has two complimentary routing mechanisms. In the conf directory, there's a file called "routes: which contains entries for the HTTP method and a relative URL path, and points it at an action in a controller.
 
-badaas-api: .\conf\routes
+##### badaas-api: .\conf\routes
 
-GET /yourRequest controllers.badaas.yourController.yourAction()
+```GET    /yourRequest        controllers.badaas.yourController.yourAction()```
 
 This is useful for situations where a front end service is rendering HTML or direct way to implement the action in controller.
 
 However, Play framework also contains a more powerful routing DSL that we will use for the REST API.For every HTTP request start with / only, Play routes it to a dedicated BadaasRouter class to handle the BADAAS requests, through the conf/routes file:
 
--\&gt; / controllers.badaas.BadaasRouter
+```->     /                   controllers.badaas.BadaasRouter```
 
 ##
 
