@@ -3,7 +3,7 @@
 
 # BADAAS - DEVELOPER GUIDE
 
-Table of Contents
+## Table of Contents
 
 [About BADAAS 2](#_Toc5268)
 
@@ -150,7 +150,8 @@ The current design uses the tree based storage representation to store/fetch the
 
 Apache Spark is used as data execution engine for processing the large set of data from data store and applying the transformation tasks on the top of the data. Additionally we are using Delta Lake extension. Delta Lake is an open-source storage layer that brings ACID transactions to Apache Spark and big data workloads. These functionalities cover in TDEngine Class and having spark session with support of delta lake.
 
-`case object TDEngine { 
+`
+case object TDEngine { 
 
   private val logger = Logger(getClass) 
 
@@ -206,6 +207,7 @@ The Lambdas are separated and implemented in Transformation Class. Currently we 
 - PHI Mask
 - Auto-Coding
 
+`
 case object Transformation {
 
 private val configHDFS = new Configuration()
@@ -239,7 +241,7 @@ applyTransformation(docID, docContent, AUTOCODING)
 }
 
 }
-
+`
 ## BADAAS API
 
 ## Steps to add an endpoint
@@ -252,11 +254,11 @@ applyTransformation(docID, docContent, AUTOCODING)
 
 As a first step for adding a new endpoint, we should add the HTTP request in the route file. Play has two complimentary routing mechanisms. In the conf directory, there&#39;s a file called &quot;routes&quot; which contains entries for the HTTP method and a relative URL path, and points it at an action in a controller.
 
-GET /yourRequest controllers.badaas.yourController.yourAction()
+`GET /yourRequest controllers.badaas.yourController.yourAction()`
 
 This is useful for situations where a front end service is rendering HTML or direct way to implement the action in controller. However, Play also contains a more powerful routing DSL that we will use for the REST API.For every HTTP request start with / only, Play routes it to a dedicated BadaasRouter class to handle the BADAAS requests, through the conf/routes file:
 
--\&gt; / controllers.badaas.BadaasRouter
+->   /                  controllers.badaas.BadaasRouter
 
 ## Using BADAASRouter
 
@@ -264,6 +266,7 @@ The next step is to assign the action for the request using controller. BADAAS R
 
 The BadaasRouter has a BadaasController injected into it through standard  **dependency injection**
 
+`
 class BadaasRouter @Inject()(controller: BadaasController) extends SimpleRouter {
 
 override def routes: Routes = {
@@ -279,6 +282,7 @@ controller.getData(files.toInt, clientName, categoryName, transName)
 case GET(p&quot;/yourRequest/$query&quot;) =\&gt;
 
 controller.yourAction(query)
+`
 
 ## Using BADAAS Controller
 
@@ -286,7 +290,7 @@ The next step is to add the action for the request in controller. A controller h
 
 The methods in a controller consist of a method returning an Action. The Action provides the &quot;engine&quot; to Play.Using the action, the controller passes in a block of code that takes a [Request](https://www.playframework.com/documentation/latest/api/scala/index.html#play.api.mvc.Request) passed in as implicit. Then, the block must return [Future[Result]](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future)
 
-class BadaasController @Inject()(val controllerComponents: ControllerComponents)(
+`class BadaasController @Inject()(val controllerComponents: ControllerComponents)(
 
 implicit ec: ExecutionContext) extends BadaasBaseController {
 
@@ -319,6 +323,7 @@ Ok(result)
 }
 
 }
+`
 
 ## BADAAS Actions
 
