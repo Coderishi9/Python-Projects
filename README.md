@@ -100,7 +100,7 @@ The full details about BADAAS can refer using the below wiki URL.
 
 [http://gitlab.india.claritrics.com/Claritrics/BuddiHealth/badaas/-/wikis/Buddi-affiliated-Data-as-a-Service-BaDaaS](http://10.0.1.17/Claritrics/BuddiHealth/badaas/-/wikis/Buddi-affiliated-Data-as-a-Service-BaDaaS)
 
-**Prerequisites**
+### **Prerequisites**
 
 - SBT Version - 1.3.4
 - Scala Version - 2.12.10
@@ -112,7 +112,7 @@ The full details about BADAAS can refer using the below wiki URL.
 
 For Development, no need to setup Spark environment and Spark session gets created automatically. For Production only we need to setup Spark separately when go for using Spark Cluster to run the map job. (use this [link](https://phoenixnap.com/kb/install-spark-on-ubuntu) to install and configure Spark)
 
-**How to Build**
+### **How to Build**
 
 1. _IntelliJ_
 
@@ -124,7 +124,7 @@ For Development, no need to setup Spark environment and Spark session gets creat
 
   - sbt - opens an sbt shell
 
-**Using sbt shell:**
+### **Using sbt shell:**
 
 Once the sbt shell is started, use below commands to appropriate actions.
 
@@ -135,7 +135,7 @@ Once the sbt shell is started, use below commands to appropriate actions.
 - `assembly`- packages all the **.class** files of the project in a jar file
 - `publishLocal` - publish the package into local file system
 
-**Data Storage Representation**
+### **Data Storage Representation**
 
 The current design uses the tree based storage representation to store/fetch the data into/from Data Store using HDFS. The developer who wants to read/write the data from/into HDFS, please follow the hierarchy.
 
