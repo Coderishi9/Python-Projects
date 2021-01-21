@@ -19,7 +19,7 @@
 
 [How to Build](#how-to-build)
 
-[Data Storage Representation](#data-storage-representation
+[Data Storage Representation](#data-storage-representation)
 
 [BADAAS CORE](#badaas-core)
 
