@@ -9,7 +9,7 @@
 
 [Introduction](#introduction)
 
-[Source](#source)
+[Source](#source)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 [Wiki](#wiki)
 
@@ -47,7 +47,8 @@
 
 ## Version 1.0.0.2
 
-<br>
+###
+
 ## About BADAAS
 
 Buddi affiliated Data as a Service (BADAAS) is mainly for virtualizing the medical chart data to avoid having redundant copies of such data on various machines. Also focusing on providing role-based access, transformation, auditing, supporting version control for the data.
