@@ -128,12 +128,12 @@ For Development, no need to setup Spark environment and Spark session gets creat
 
 Once the sbt shell is started, use below commands to appropriate actions.
 
-- clean- deletes all the compiled classes and other generated resources in **target** directory
-- update- resolves _libraryDependencies_ and updates any new/broken library
-- compile- compiles all the files in the _current_ project
-- run- to run application as a rest service
-- assembly- packages all the **.class** files of the project in a jar file
-- publishLocal - publish the package into local file system
+- `clean`- deletes all the compiled classes and other generated resources in **target** directory
+- `update`- resolves _libraryDependencies_ and updates any new/broken library
+- `compile`- compiles all the files in the _current_ project
+- `run`- to run application as a rest service
+- `assembly`- packages all the **.class** files of the project in a jar file
+- `publishLocal` - publish the package into local file system
 
 **Data Storage Representation**
 
@@ -150,51 +150,55 @@ The current design uses the tree based storage representation to store/fetch the
 
 Apache Spark is used as data execution engine for processing the large set of data from data store and applying the transformation tasks on the top of the data. Additionally we are using Delta Lake extension. Delta Lake is an open-source storage layer that brings ACID transactions to Apache Spark and big data workloads. These functionalities cover in TDEngine Class and having spark session with support of delta lake.
 
-case object TDEngine {
+`case object TDEngine { 
 
-private val logger = Logger(getClass)
+  private val logger = Logger(getClass) 
 
-private val sparkDeltaLake: SparkSession = SparkSession.builder()
+  private val sparkDeltaLake: SparkSession = SparkSession.builder() 
 
-.master(ConfigFactory.load().getString(&quot;spark.uri&quot;))
+    .master(ConfigFactory.load().getString("spark.uri")) 
 
-.appName(&quot;badaas-buddi.ai-delta-lake&quot;)
+    .appName("badaas-buddi.ai-delta-lake") 
 
-.config(&quot;spark.sql.extensions&quot;, &quot;io.delta.sql.DeltaSparkSessionExtension&quot;)
+    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") 
 
-.config(&quot;spark.delta.logStore&quot;, &quot;org.apache.spark.sql.delta.storage.HDFSLogStore&quot;)
+    .config("spark.delta.logStore", "org.apache.spark.sql.delta.storage.HDFSLogStore") 
 
-.config(&quot;spark.sql.catalog.spark\_catalog&quot;, &quot;org.apache.spark.sql.delta.catalog.DeltaCatalog&quot;)
+    .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") 
 
-.getOrCreate()
+    .getOrCreate() 
 
-sparkDeltaLake.sparkContext.setLogLevel(&quot;ERROR&quot;)
+  sparkDeltaLake.sparkContext.setLogLevel("ERROR") 
 
-def get(numberOfFiles: Int, clientName: String, categoryName: String = &quot;ed&quot;,
+ 
 
-transformationName: TransformationEnumeration.Value = PHIMASK, nameStartsWith:String = &quot;&quot;): List[BadaasDataResource] = {
+  def get(numberOfFiles: Int, clientName: String, categoryName: String = "ed", 
 
-val dataRDD = getOrLoadData(clientName, categoryName, transformationName)
+          transformationName: TransformationEnumeration.Value = PHIMASK, nameStartsWith:String = ""): List[BadaasDataResource] = { 
 
-if (dataRDD.isEmpty)
+    val dataRDD = getOrLoadData(clientName, categoryName, transformationName) 
 
-List[BadaasDataResource]()
+    if (dataRDD.isEmpty) 
 
-else
+      List[BadaasDataResource]() 
 
-dataRDD.rdd.filter( x =\&gt; x.getString(0).startsWith(nameStartsWith)).take(numberOfFiles).map(x =\&gt; BadaasDataResource(generateUUID(x.getString(0).getBytes()), Array(x.getString(1)))).toList
+    else 
 
-}
+      dataRDD.rdd.filter( x => x.getString(0).startsWith(nameStartsWith)).take(numberOfFiles).map(x => BadaasDataResource(generateUUID(x.getString(0).getBytes()), Array(x.getString(1)))).toList 
 
-def method() : Any = {
+  } 
 
-// your logic
+ 
+<span style="color:blue">
+def method() : Any = { 
 
-// call transformation
+// your logic 
 
-}
+// call transformation 
 
-}
+} 
+</span>
+} `
 
 ## Transformation or Lambda
 
