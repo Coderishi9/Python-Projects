@@ -45,11 +45,7 @@
 
 
 
-## &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0.0.2
-
-
-
-##
+## Version 1.0.0.2
 
 
 ## About BADAAS
@@ -149,7 +145,6 @@ case object TDEngine {
 
   sparkDeltaLake.sparkContext.setLogLevel("ERROR") 
 
- 
 
   def get(numberOfFiles: Int, clientName: String, categoryName: String = "ed", 
 
@@ -166,17 +161,14 @@ case object TDEngine {
       dataRDD.rdd.filter( x => x.getString(0).startsWith(nameStartsWith)).take(numberOfFiles).map(x => 		BadaasDataResource(generateUUID(x.getString(0).getBytes()), Array(x.getString(1)))).toList 
 
   } 
+  
+  def method() : Any = { 
 
- 
+    // your logic 
 
-def method() : Any = { 
+    // call transformation 
 
-// your logic 
-
-// call transformation 
-
-} 
-
+  } 
 }
 ```
 
