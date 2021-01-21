@@ -47,7 +47,7 @@
 
 ## Version 1.0.0.2
 
-###
+
 
 ## About BADAAS
 
@@ -259,8 +259,8 @@ object TransformationEnumeration extends Enumeration {
 
 1. Add your HTTP endpoint for routing
 
-&nbsp;&nbsp;&nbsp;&nbsp;1. Using Route file
-&nbsp;&nbsp;&nbsp;&nbsp;2. Using Router class
+> 1. Using Route file
+> 2. Using Router class
 
 2. Add action for your endpoint in Controller class
 
