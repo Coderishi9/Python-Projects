@@ -5,39 +5,39 @@
 
 ## Table of Contents
 
-[About BADAAS 2](#about)
+[About BADAAS](#about-badaas)
 
-[Introduction 2](#_Toc29409)
+[Introduction](#introduction)
 
-[Source 2](#source)
+[Source](#source)
 
-[Wiki 3](#_Toc3253)
+[Wiki](#wiki)
 
-[Prerequisites 3](#_Toc26004)
+[Prerequisites](#prerequisites)
 
-[Apache Spark 3](#_Toc19554)
+[Apache Spark](#apache-spark)
 
-[How to Build 3](#_Toc26919)
+[How to Build](#how-to-build)
 
-[Data Storage Representation 4](#_Toc28407)
+[Data Storage Representation](#data-storage-representation
 
-[BADAAS CORE 4](#_Toc6681)
+[BADAAS CORE](#badaas-core)
 
-[Using Apache Spark with Delta Lake 4](#_Toc12336)
+[Using Apache Spark with Delta Lake](#using-apache-spark-with-delta-lake)
 
-[Transformation or Lambda 5](#_Toc32745)
+[Transformation or Lambda](#transformation-or-lambda)
 
-[BADAAS API 5](#_Toc4466)
+[BADAAS API](#badaas-api)
 
-[Steps to add an endpoint 5](#_Toc30374)
+[Steps to add an endpoint](#steps-to-add-an-endpoint)
 
-[Routing BADAAS Requests 6](#_Toc26067)
+[Routing BADAAS Requests ](#routing-badaas-requests)
 
-[Using BADAASRouter 6](#_Toc14178)
+[Using BADAASRouter](#using-badaasrouter)
 
-[Using BADAAS Controller 6](#_Toc13087)
+[Using BADAAS Controller](#using-badaas-controller)
 
-[BADAAS Actions 7](#_Toc17821)
+[BADAAS Actions](#badaas-actions)
 
 ##
 
