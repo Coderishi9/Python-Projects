@@ -27,6 +27,8 @@
 
 [Transformation or Lambda](#transformation-or-lambda)
 
+[Guidelines for implementing new transformation](#guidelines-for-implementing-new-transformation)
+
 [BADAAS API](#badaas-api)
 
 [Steps to add an endpoint](#steps-to-add-an-endpoint)
@@ -42,27 +44,9 @@
 ##
 
 
-##
 
+## &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0.0.2
 
-##
-
-
-##
-
-
-##
-
-
-##                                                          Version 1.0.0.2
-
-##
-
-
-##
-
-
-##
 
 
 ##
