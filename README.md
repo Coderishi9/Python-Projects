@@ -198,7 +198,9 @@ def method() : Any = {
 
 } 
 
-}```
+}
+```
+
 ## Transformation or Lambda
 
 The Lambdas are separated and implemented in Transformation Class. Currently we are supporting minimal number of transformations. if you want to add new lambda(s), then you will implement it in this Class and make call from TDEngine. The supported transformations are below,
@@ -208,7 +210,7 @@ The Lambdas are separated and implemented in Transformation Class. Currently we 
 - PHI Mask
 - Auto-Coding
 
-`
+```
 case object Transformation {
 
 private val configHDFS = new Configuration()
@@ -242,7 +244,8 @@ applyTransformation(docID, docContent, AUTOCODING)
 }
 
 }
-`
+```
+
 ## BADAAS API
 
 ## Steps to add an endpoint
@@ -259,7 +262,7 @@ As a first step for adding a new endpoint, we should add the HTTP request in the
 
 This is useful for situations where a front end service is rendering HTML or direct way to implement the action in controller. However, Play also contains a more powerful routing DSL that we will use for the REST API.For every HTTP request start with / only, Play routes it to a dedicated BadaasRouter class to handle the BADAAS requests, through the conf/routes file:
 
-->   /                  controllers.badaas.BadaasRouter
+```->   /                  controllers.badaas.BadaasRouter```
 
 ## Using BADAASRouter
 
@@ -267,7 +270,7 @@ The next step is to assign the action for the request using controller. BADAAS R
 
 The BadaasRouter has a BadaasController injected into it through standard  **dependency injection**
 
-`
+```
 class BadaasRouter @Inject()(controller: BadaasController) extends SimpleRouter {
 
 override def routes: Routes = {
@@ -283,7 +286,7 @@ controller.getData(files.toInt, clientName, categoryName, transName)
 case GET(p&quot;/yourRequest/$query&quot;) =\&gt;
 
 controller.yourAction(query)
-`
+```
 
 ## Using BADAAS Controller
 
@@ -291,7 +294,8 @@ The next step is to add the action for the request in controller. A controller h
 
 The methods in a controller consist of a method returning an Action. The Action provides the &quot;engine&quot; to Play.Using the action, the controller passes in a block of code that takes a [Request](https://www.playframework.com/documentation/latest/api/scala/index.html#play.api.mvc.Request) passed in as implicit. Then, the block must return [Future[Result]](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future)
 
-`class BadaasController @Inject()(val controllerComponents: ControllerComponents)(
+```
+class BadaasController @Inject()(val controllerComponents: ControllerComponents)(
 
 implicit ec: ExecutionContext) extends BadaasBaseController {
 
@@ -324,7 +328,7 @@ Ok(result)
 }
 
 }
-`
+```
 
 ## BADAAS Actions
 
