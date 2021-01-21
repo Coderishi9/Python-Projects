@@ -5,11 +5,11 @@
 
 ## Table of Contents
 
-[About BADAAS 2](#_Toc5268)
+[About BADAAS 2](#about)
 
 [Introduction 2](#_Toc29409)
 
-[Source 2](#_Toc18665)
+[Source 2](#source)
 
 [Wiki 3](#_Toc3253)
 
