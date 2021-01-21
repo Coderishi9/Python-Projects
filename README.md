@@ -188,8 +188,6 @@ Apache Spark is used as data execution engine for processing the large set of da
 
   } 
 
- 
-<span style="color:blue">
 def method() : Any = { 
 
 // your logic 
@@ -197,7 +195,6 @@ def method() : Any = {
 // call transformation 
 
 } 
-</span>
 } `
 
 ## Transformation or Lambda
