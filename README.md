@@ -90,10 +90,6 @@ API - [http://gitlab.india.claritrics.com/Claritrics/BuddiHealth/badaas-api.git]
 
 ##
 
-
-##
-
-
 ## Wiki
 
 The full details about BADAAS can refer using the below wiki URL.
@@ -142,7 +138,6 @@ The current design uses the tree based storage representation to store/fetch the
 ![](RackMultipart20210121-4-eim9eg_html_e24461d69bba02d8.png)
 
 ##
-
 
 ## BADAAS CORE
 
