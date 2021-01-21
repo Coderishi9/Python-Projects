@@ -189,7 +189,7 @@ case object TDEngine {
   } 
 
  
-<font color='red'>
+
 def method() : Any = { 
 
 // your logic 
@@ -198,7 +198,7 @@ def method() : Any = {
 
 } 
 
-}</font>
+}
 ```
 
 ## Transformation or Lambda
@@ -215,7 +215,7 @@ case object Transformation {
 
 private val configHDFS = new Configuration()
 
-private val uriHDFS = new URI(ConfigFactory.load().getString(&quot;hdfs.uri&quot;))
+private val uriHDFS = new URI(ConfigFactory.load().getString("hdfs.uri"))
 
 private val fileSystemHDFS: FileSystem = FileSystem.get(uriHDFS, configHDFS)
 
@@ -258,7 +258,7 @@ applyTransformation(docID, docContent, AUTOCODING)
 
 As a first step for adding a new endpoint, we should add the HTTP request in the route file. Play has two complimentary routing mechanisms. In the conf directory, there&#39;s a file called &quot;routes&quot; which contains entries for the HTTP method and a relative URL path, and points it at an action in a controller.
 
-`GET /yourRequest controllers.badaas.yourController.yourAction()`
+<font color='red'>`GET /yourRequest controllers.badaas.yourController.yourAction()`</font>
 
 This is useful for situations where a front end service is rendering HTML or direct way to implement the action in controller. However, Play also contains a more powerful routing DSL that we will use for the REST API.For every HTTP request start with / only, Play routes it to a dedicated BadaasRouter class to handle the BADAAS requests, through the conf/routes file:
 
@@ -271,21 +271,20 @@ The next step is to assign the action for the request using controller. BADAAS R
 The BadaasRouter has a BadaasController injected into it through standard  **dependency injection**
 
 ```
-class BadaasRouter @Inject()(controller: BadaasController) extends SimpleRouter {
+class BadaasRouter @Inject()(controller: BadaasController) extends SimpleRouter { 
+  override def routes: Routes = { 
 
-override def routes: Routes = {
+    case GET(p"/getSection/$files//$clientName/$tagName/$categoryName") => 
 
-case GET(p&quot;/getSection/$files//$clientName/$tagName/$categoryName&quot;) =\&gt;
+      controller.getSection(files.toInt, clientName, tagName, categoryName) 
 
-controller.getSection(files.toInt, clientName, tagName, categoryName)
+    case GET(p"/getData/$files/$clientName/$categoryName/$transName") => 
 
-case GET(p&quot;/getData/$files/$clientName/$categoryName/$transName&quot;) =\&gt;
+      controller.getData(files.toInt, clientName, categoryName, transName) 
 
-controller.getData(files.toInt, clientName, categoryName, transName)
+    case GET(p"/yourRequest/$query") => 
 
-case GET(p&quot;/yourRequest/$query&quot;) =\&gt;
-
-controller.yourAction(query)
+      controller.yourAction(query) 
 ```
 
 ## Using BADAAS Controller
@@ -303,11 +302,11 @@ implicit ec: ExecutionContext) extends BadaasBaseController {
 
 def getData(fileCount: Int, clientName: String, categoryName: String, transformationName: String): Action[AnyContent] = BadaasAction.async {
 
-implicit request =\&gt;
+implicit request =>
 
-logger.trace(&quot;Controller - Get Data&quot;)
+logger.trace("Controller - Get Data")
 
-BadaasServiceHandler.getData(fileCount, clientName, categoryName, transformationName).map { result =\&gt;
+BadaasServiceHandler.getData(fileCount, clientName, categoryName, transformationName).map { result =>
 
 Ok(result)
 
@@ -317,9 +316,9 @@ Ok(result)
 
 def yourAction(): Action[AnyContent] = BadaasAction.async {
 
-implicit request =\&gt;
+implicit request =>
 
-BadaasServiceHandler.yourHandlerMethod().map { result =\&gt;
+BadaasServiceHandler.yourHandlerMethod().map { result =>
 
 Ok(result)
 
