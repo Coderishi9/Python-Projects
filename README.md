@@ -105,21 +105,20 @@ The full details about BADAAS can refer using the below wiki URL.
 - SBT Version - 1.3.4
 - Scala Version - 2.12.10
 - Java Version - 1.8 and above
-- Hadoop - 3.3.0 - (use this [link](https://phoenixnap.com/kb/install-hadoop-ubuntu)for installation and configuration)
+- Hadoop - 3.3.0 - (use this [link](https://phoenixnap.com/kb/install-hadoop-ubuntu) for installation and configuration)
 - IntelliJ
 
 **Apache Spark**
 
-For Development, no need to setup Spark environment and Spark session gets created automatically. For Production only we need to setup Spark separately when go for using Spark Cluster to run the map job. (use this [link](https://phoenixnap.com/kb/install-spark-on-ubuntu)to install and configure Spark)
+For Development, no need to setup Spark environment and Spark session gets created automatically. For Production only we need to setup Spark separately when go for using Spark Cluster to run the map job. (use this [link](https://phoenixnap.com/kb/install-spark-on-ubuntu) to install and configure Spark)
 
 **How to Build**
 
 1. _IntelliJ_
 
-  - Add a Configuration of type sbt Task to r_u_n or debug
-  - sbt Tool Window in the Sidebar
-  - sbt shell at the Bottom Left
-
+&nbsp;&nbsp;- Add a Configuration of type sbt Task to run or debug
+&nbsp;&nbsp;- sbt Tool Window in the Sidebar
+&nbsp;&nbsp;- sbt shell at the Bottom Left
 1. _Terminal_ - IDE integrated or native:
 
   - sbt - opens an sbt shell
