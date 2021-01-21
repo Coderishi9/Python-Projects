@@ -214,75 +214,64 @@ Spark Transformation is a function that takes the inputs as RDD and map into ano
 
 ##### badaas-core: .\src\main\scala\ai\buddi\core\Transformation.scala
 ```
-case object Transformation {
+case object Transformation { 
 
-private val configHDFS = new Configuration()
+  private val configHDFS = new Configuration() 
 
-private val uriHDFS = new URI(ConfigFactory.load().getString(&quot;hdfs.uri&quot;))
+  private val uriHDFS = new URI(ConfigFactory.load().getString("hdfs.uri")) 
 
-private val fileSystemHDFS: FileSystem = FileSystem.get(uriHDFS, configHDFS)
+  private val fileSystemHDFS: FileSystem = FileSystem.get(uriHDFS, configHDFS) 
 
-def parsingTransformation(docID: String, docContent: String): (String, String) = {
+  def parsingTransformation(docID: String, docContent: String): (String, String) = { 
+    applyTransformation(docID, docContent, PARSING) 
+  } 
+  
+  def applyTransformation(docID: String, docContent: String, transformationName: TransformationEnumeration.Value): (String, String) = { 
+    try { 
+      (docID, mlpOperation(docContent, transformationName.toString)) 
+    } finally { 
+    
+    } 
+  }
 
-applyTransformation(docID, docContent, PARSING)
+  def autoCodingTransformation(docID: String, docContent: String): (String, String) = { 
+    applyTransformation(docID, docContent, AUTOCODING) 
+  } 
 
-}
+  def yourTransformation(): Any = { 
 
-def applyTransformation(docID: String, docContent: String, transformationName: TransformationEnumeration.Value): (String, String) = {
+    // transformation logic 
 
-try {
-
-(docID, mlpOperation(docContent, transformationName.toString))
-
-} finally {
-
-}
-
-}
-
-def autoCodingTransformation(docID: String, docContent: String): (String, String) = {
-
-applyTransformation(docID, docContent, AUTOCODING)
-
-}
-
-def yourTransformation(): Any = {
-
-// transformation logic
-
-}
-
-}
+  } 
+} 
 ```
 
 
 ##### badaas-core: .\src\main\scala\ai\buddi\core\TransformationEnumeration.scala
 ```
-object TransformationEnumeration extends Enumeration {
+object TransformationEnumeration extends Enumeration { 
 
-type TransformationEnumeration = Value
+  type TransformationEnumeration = Value 
+  
+  val PHIMASK = Value("phimask") 
 
-val PHIMASK = Value("phimask")
+  val PARSING = Value("parsing") 
 
-val PARSING = Value("parsing")
+  val AUTOCODING = Value("autocoding") 
 
-val AUTOCODING = Value("autocoding")
+  val CONVERSION = Value("conversion") 
 
-val CONVERSION = Value("conversion")
+  // Add new lambda as enum here 
 
-// Add new lambda as enum here
+  // format 
 
-// format
+  implicit val myFormat = new Format[TransformationEnumeration.TransformationEnumeration] { 
 
-implicit val myFormat = new Format[TransformationEnumeration.TransformationEnumeration] {
+    def reads(json: JsValue): JsSuccess[Value] = JsSuccess(TransformationEnumeration.withName(json.as[String])) 
 
-def reads(json: JsValue): JsSuccess[Value] = JsSuccess(TransformationEnumeration.withName(json.as[String]))
-
-def writes(myEnum: TransformationEnumeration.TransformationEnumeration) = JsString(myEnum.toString)
-
-}
-
-}
+    def writes(myEnum: TransformationEnumeration.TransformationEnumeration) = JsString(myEnum.toString) 
+  } 
+} 
 ```
 
 ##
@@ -293,10 +282,10 @@ def writes(myEnum: TransformationEnumeration.TransformationEnumeration) = JsStri
 
 1. Add your HTTP endpoint for routing
 
-1. Using Route file
-2. Using Router class
+&nbsp;&nbsp;&nbsp;&nbsp;1. Using Route file
+&nbsp;&nbsp;&nbsp;&nbsp;2. Using Router class
 
-1. Add action for your endpoint in Controller class
+2. Add action for your endpoint in Controller class
 
 ## Routing BADAAS Requests
 
