@@ -108,7 +108,7 @@ The full details about BADAAS can refer using the below wiki URL.
 - Hadoop - 3.3.0 - (use this [link](https://phoenixnap.com/kb/install-hadoop-ubuntu) for installation and configuration)
 - IntelliJ
 
-**Apache Spark**
+### **Apache Spark**
 
 For Development, no need to setup Spark environment and Spark session gets created automatically. For Production only we need to setup Spark separately when go for using Spark Cluster to run the map job. (use this [link](https://phoenixnap.com/kb/install-spark-on-ubuntu) to install and configure Spark)
 
